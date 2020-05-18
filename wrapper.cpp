@@ -5,8 +5,18 @@
 
 namespace py = pybind11;
 
+class Solver{
+  public:
+    void solve(int n, py::list left, py::list right);
+    double *X;
+    int size;
+  
+  private:
+    bool ludist ( int n, double ** A );
+    bool lusolve ( int n, double ** A, double * B);
+};
 
-bool ludist ( int n, double ** A )
+bool Solver::ludist ( int n, double ** A )
 {
   int i, j, k;
 
@@ -27,7 +37,7 @@ bool ludist ( int n, double ** A )
 
 // Funkcja wyznacza wektor X na podstawie A i B
 //---------------------------------------------
-bool lusolve ( int n, double ** A, double * B, double * X )
+bool Solver::lusolve ( int n, double ** A, double * B)
 {
   int    i, j;
   double s;
@@ -61,8 +71,9 @@ bool lusolve ( int n, double ** A, double * B, double * X )
   return true;
 }
 
-double* solve(int n, py::list left, py::list right) {
-	double **A, *B, *X;
+void Solver::solve(int n, py::list left, py::list right) {
+  this->size = n;
+	double **A, *B;
 	int i;
 
 	std::cout << std::setprecision ( 4 ) << std::fixed;
@@ -91,23 +102,33 @@ double* solve(int n, py::list left, py::list right) {
         counter1 ++;
     }
 
-	if( ludist ( n, A ) && lusolve ( n, A, B, X ) )
+	if( ludist ( n, A ) && lusolve ( n, A, B) )
 	{
-		for( i = 0; i < n; i++ ) std::cout << "x" << i + 1 << " = " << std::setw ( 9 ) << X [ i ] << std::endl;
+		//for( i = 0; i < n; i++ ) std::cout << "x" << i + 1 << " = " << std::setw ( 9 ) << X [ i ] << std::endl;
 	}
 	else std::cout << "DZIELNIK ZERO\n";
 
-	// usuwamy macierze z pamięci
 
 	for( i = 0; i < n; i++ ) delete [ ] A [ i ];
 	delete [ ] A;
 	delete [ ] B;
-	//delete [ ] X;
-	
-    return X;
+
 }
 
 PYBIND11_MODULE(equations_solver, m) {
-    m.doc() = "pybind11 example plugin"; // Optional module docstring
-    m.def("solve", &solve, "Method of solving systems of linear equations");
+    // m.doc() = "pybind11 example plugin"; // Optional module docstring
+    // m.def("solve", solve, "Method of solving systems of linear equations");
+        py::class_<Solver>(m, "Solver")
+        .def(py::init<>())
+        .def("solve", &Solver::solve)
+        .def("__repr__",
+        [](const Solver &a) {
+            std::string results = "";
+            for(int i = 0; i < a.size; i++)
+            {
+              results += std::to_string(a.X[i]) + ":";
+            }
+            return results;
+        }
+    );
 }
