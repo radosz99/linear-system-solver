@@ -107,8 +107,6 @@ double* solve(int n, py::list left, py::list right) {
     return X;
 }
 
-
-
 PYBIND11_MODULE(equations_solver, m) {
     m.doc() = "pybind11 example plugin"; // Optional module docstring
     m.def("solve", &solve, "Method of solving systems of linear equations");
