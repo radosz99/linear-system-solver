@@ -1,1 +1,20 @@
-# linear-system-solver
+**<p align="center"> Wrocław University of Science and Technology </p>**
+**<p align="center"> Computer Science, Faculty of Electronics, 6 semester </p>**
+<p align="center"> Radosław Lis, 241385 </p>
+
+# Table of Contents
+- [General info](#desc)
+- [Run](#run)
+
+<a name="desc"></a>
+# General info
+Python & C++ application for solving linear systems.
+
+<a name="run"></a>
+# Run
+
+```
+$ invoke build-solver
+$ python3 solve.py
+```
+
