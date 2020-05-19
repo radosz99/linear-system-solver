@@ -15,10 +15,9 @@ def save_data():
     try:
         generate_random_data(int(amount), filename)
     except ValueError:
-        print(f'\nNiepoprawna liczba')
+        print('\nNiepoprawna liczba')
         return
     print(f'\nPoprawnie wygenerowano i zapisano do pliku {filename}')
-    
 
 
 def generate_random_data(amount, filename):
@@ -65,7 +64,7 @@ def ask_for_data():
         single_left_ = []
         for i in range(int(size) + 1):
             if(i == int(size)):
-                value = input(f'prawa strona = ')
+                value = input('prawa strona = ')
                 right_.append(float(value))
                 info = info[:-2] + f' = {value}'
             else:
@@ -83,7 +82,7 @@ def ask_for_data():
 def handle_solve_systems_from_file():
     filename = input('Podaj nazwe pliku: ')
     solve_systems_from_file(filename)
-    
+
 
 def solve_systems_from_file(filename):
     err_line_ = '=' * 70
@@ -133,6 +132,7 @@ def solve_systems_from_file(filename):
     except FileNotFoundError as f:
         print(f'\nBlad przy otwieraniu pliku - {str(f)}')
 
+
 SWITCHER = {
     '1': handle_solve_linear_system,
     '2': handle_solve_systems_from_file,
@@ -143,11 +143,11 @@ SWITCHER = {
 
 def menu():
     ans = 0
-    while(ans != 10):
+    while(ans != 4):
         print(MENU)
         ans = input("\nCo chcesz zrobic?: ")
         SWITCHER[ans]()
 
+
 if __name__ == "__main__":
     menu()
-
