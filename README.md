@@ -5,7 +5,7 @@
 # Table of Contents
 - [General info](#desc)
 - [Run](#run)
-
+- [Build executable](#build)
 <a name="desc"></a>
 # General info
 Python & C++ application for solving linear systems.
@@ -17,4 +17,11 @@ Python & C++ application for solving linear systems.
 $ invoke build-solver
 $ python3 solve.py
 ```
+<a name="build"></a>
+# Build and run executable
 
+```
+$ pyinstaller --clean --win-private-assemblies -F solve.py
+$ cd dist
+$ ./solve
+```
