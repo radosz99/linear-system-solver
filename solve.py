@@ -43,16 +43,21 @@ def _exit():
 
 def handle_solve_linear_system():
     size, left_, right_ = ask_for_data()
-    print()
-    for index, value in enumerate(solve(size, left_, right_)):
-        print(f'x_{index}: {value}')
-    print()
+    solve(size, left_, right_)
+
 
 
 def solve(size, left_, right_):
     p = equations_solver.Solver()
     p.solve(size, left_, right_)
-    return str(p)[:-1].split(':')
+    values = str(p)[:-1].split(':')
+    if(len(values) <= 1):
+        print('UKLAD SPRZECZNY')
+        print()
+        return
+    for index, value in enumerate(values):
+        print(f'x_{index}: {value}')
+    print()
 
 
 def ask_for_data():
@@ -126,9 +131,7 @@ def solve_systems_from_file(filename):
                     continue
                 print()
                 print(f'Rownanie nr {line_counter} ({linear_system.strip()}):')
-                for index, value in enumerate(solve(size, left_, right_)):
-                    print(f'x_{index}: {value}')
-                print()
+                solve(size, left_, right_)
     except FileNotFoundError as f:
         print(f'\nBlad przy otwieraniu pliku - {str(f)}')
 
