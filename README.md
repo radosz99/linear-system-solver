@@ -14,6 +14,7 @@ Python & C++ application for solving linear systems.
 # Run
 
 ```
+$ pip3 install -r requirements.txt 
 $ invoke build-solver
 $ python3 solve.py
 ```
@@ -21,7 +22,6 @@ $ python3 solve.py
 # Build and run executable
 
 ```
-$ pyinstaller --clean --win-private-assemblies -F solve.py
-$ cd dist
+$ pyinstaller --clean --win-private-assemblies -F solve.py && cd dist
 $ ./solve
 ```
