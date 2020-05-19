@@ -22,6 +22,6 @@ $ python3 solve.py
 # Build and run executable
 
 ```
-$ pyinstaller --clean --win-private-assemblies -F solve.py && cd dist
+$ pyinstaller --clean -F solve.py && cd dist
 $ ./solve
 ```
